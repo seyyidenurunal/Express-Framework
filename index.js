@@ -7,8 +7,7 @@ var path = require ('path');
 app.use(express.static(path.join(__dirname + '../public')));
 
 app.get('/', (req,res) => {
-  console.log('test')
-  res.render("index.pug");
+  res.render("index.pug", {name : "Ayşe", job  : "Developer"});
 });
 
 app.listen(3000, () => {
