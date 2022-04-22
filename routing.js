@@ -5,7 +5,7 @@ const app = express();
 ? => Zorunlu olmayan  (ilet?isim -- ileisim de yazılsa kabul.) ya da (ile(ti)sim -- ilesim yazarsa kabul)
                                                                     ama parantez içine alınanların hiçbiri olmaması lazım.
 * => Yerine Herhangi bir ifade gelebilir. (ileti*sim -- iletiKSNVSJKNSsim de yazılsa çalışır.)
-+ => Soldaki ifadenin aynısını yazmaya devam edildiğinde sorun olmuyor.olmalı.
++ => Soldaki ifadenin aynısını yazmaya devam edildiğinde de çalışır.
 
 */
 
