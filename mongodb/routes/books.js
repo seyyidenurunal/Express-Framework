@@ -8,7 +8,7 @@ var Book = require('../models/Book');
 router.post('/new', function(req, res, next) {
     var book = new Book({
         title : 'Yeni Dünyanın Cesur İnsanı',
-        published : false,
+        published : true,
         comments :[
             {message : "Harika bir kitap."},
             {message : "Tam bir başyapıt."}
@@ -28,4 +28,11 @@ router.post('/new', function(req, res, next) {
     });
 });
 
+router.get('/search', (req,res) => { //Sorgu yapmayı sağlar.
+    Book.find({published : true, title : "Yeni"}, 'title comments' , (err,data) => { //2. parametre olarak girdiğimiz comment, bulunan verinin yalnızca comment kısmını getirmeyi sağlar. 
+        res.json(data);                                                              //Birden fazla arama yapmak için virgülle devam ederiz.
+    });
+});
+
 module.exports = router;
+
