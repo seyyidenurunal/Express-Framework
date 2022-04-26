@@ -92,9 +92,13 @@ router.get('/skip', (req,res) => {
 //Aggregate -- Kümeleme işlemleri --Eşleştirme
 router.get('/aggregate', (res,req) => {
     Book.aggregate([
-        {$match :{ published : true} }
-    ], (err,result) => {
-        res.json(result)
+        {
+            $match :{ 
+                published : true
+            } 
+        }
+    ], (err,result) => {    
+            req.json(result);
     });
 });
 
