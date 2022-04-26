@@ -7,7 +7,8 @@ var Book = require('../models/Book');
 
 router.post('/new', function(req, res, next) {
     var book = new Book({
-        title : 'Yeraltından Notlar',
+        title : 'İnsan Ne İle Yaşar',
+        category : "Klasik",
         published : true,
         comments :[
             {message : "Harika bir kitap."},
@@ -56,9 +57,9 @@ router.delete('/delete' ,(req, res) => {
         res.json(data);
     });
 });
-
+    
 router.delete('/remove' ,(req, res) => { 
-    Book.remove({title : "Yeni Dünyanın Cesur İnsanı"}, (err,data) => { //   belirtilen isimdeki tüm kayıtları siler
+    Book.remove({published : true}, (err,data) => { //   belirtilen isimdeki tüm kayıtları siler
         res.json(data);
     });
 });
@@ -96,9 +97,24 @@ router.get('/aggregate', (res,req) => {
             $match :{ 
                 published : true
             } 
+        },
+        {
+            $project : {
+                title : 1 //sadece istenilen alan gelir. true veya 1 ile getirilir.
+            }
+        },
+        {
+            $sort : {title : -1 } //başlığa göre alfabetik olarak terstem sıralar.
+        },
+        {
+            $limit : 4
+        },
+        {
+            $skip : 1
         }
-    ], (err,result) => {    
-            req.json(result);
+    
+    ], (err,data) => {    
+            req.json(data);
     });
 });
 
