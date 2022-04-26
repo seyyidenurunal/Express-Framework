@@ -7,7 +7,7 @@ var Book = require('../models/Book');
 
 router.post('/new', function(req, res, next) {
     var book = new Book({
-        title : 'İnsan ne ile yaşar',
+        title : 'Yeraltından Notlar',
         published : true,
         comments :[
             {message : "Harika bir kitap."},
@@ -15,7 +15,7 @@ router.post('/new', function(req, res, next) {
         ],
         meta : {
             votes : 12,
-            favs : 150
+            favs : 170
         }
 
     });
@@ -58,7 +58,7 @@ router.delete('/delete' ,(req, res) => {
 });
 
 router.delete('/remove' ,(req, res) => { 
-    Book.remove({title : "NodeJS Eğitim"}, (err,data) => { //   b   elirtilen isimdeki tüm kayıtları siler
+    Book.remove({title : "Yeni Dünyanın Cesur İnsanı"}, (err,data) => { //   belirtilen isimdeki tüm kayıtları siler
         res.json(data);
     });
 });
@@ -68,5 +68,35 @@ router.put('/updateMany' ,(req, res) => {  //UpdateOne ise bulduğu ilk kaydı d
         res.json(data);
     });
 });
+
+router.get('/sort', (req,res) => {
+    Book.find({}, (err,data) => {
+        res.json(data);
+    }).sort({'title': 1 }) //Rakamlar için 1 verilirse büyükten küçüğe -1 verilirse küçükten büyüğe sıralar
+});                         //Harfler için 1 verilirse A'dan Z'ye, -1 için ise Z'den A'ya sıralar.
+
+
+router.get('/limit', (req,res) => {
+    Book.find({}, (err,data) => {
+        res.json(data);
+    }).limit(1); //Geri dönmesini istediğim maksimum datayı ifade eder.
+});           
+
+router.get('/skip', (req,res) => {
+    Book.find({}, (err,data) => {
+        res.json(data);
+    }).skip(2); //Atlama yapmasını istediğimiz dataları ifade eder.
+                //limit ile skip birlikte de kullanılabilir.
+});  
+
+//Aggregate -- Kümeleme işlemleri --Eşleştirme
+router.get('/aggregate', (res,req) => {
+    Book.aggregate([
+        {$match :{ published : true} }
+    ], (err,result) => {
+        res.json(result)
+    });
+});
+
 
 module.exports = router;
