@@ -51,4 +51,22 @@ router.get('/searchById' ,(req, res) => {
     });
 });
 
+router.delete('/delete' ,(req, res) => { 
+    Book.findOneAndRemove({title : "NodeJS Eğitim"}, (err,data) => { //Sadece bulduğu ilk kaydı siler.
+        res.json(data);
+    });
+});
+
+router.delete('/remove' ,(req, res) => { 
+    Book.remove({title : "NodeJS Eğitim"}, (err,data) => { //   b   elirtilen isimdeki tüm kayıtları siler
+        res.json(data);
+    });
+});
+
+router.put('/updateMany' ,(req, res) => {  //UpdateOne ise bulduğu ilk kaydı değiştirir.
+    Book.updateMany({published : false}, {published : true}, (err,data) => { //False olan tüm kayıtları true yapar.
+        res.json(data);
+    });
+});
+
 module.exports = router;
