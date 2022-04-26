@@ -34,12 +34,21 @@ router.get('/search', (req,res) => { //Sorgu yapmayı sağlar.
     });
 });
 
+router.get('/searchComplate', (req, res) => {
+    Book.findOne({}, (err,data) => { //Tüm kayıtları getirir.
+            res.json(data);
+    });
+});
+
 router.get('/searchOne', (req, res) => {
     Book.findOne({published : true}, (err,data) => { //İlk kayıtla uyuştuğu an cevap döner.
             res.json(data);
     });
 });
 
+router.get('/searchById' ,(req, res) => {
+    Book.findById('62668c3c5a35dd70d3796a35', (err,data) => { //Id bazlı arama yapmayı sağlar
+    });
+});
+
 module.exports = router;
-
-
