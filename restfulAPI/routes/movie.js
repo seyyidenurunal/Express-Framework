@@ -27,9 +27,9 @@ router.get('/:movie_id', (req,res,next) => {  // id bazlı arama için
 });
 
 
-router.put('/:movie_id', (req,res,next) => {  // id bazlı arama için
+router.put('/:movie_id', (req,res,next) => {   //veri güncelleme
  
-  const promise = Movie.findByIdAndUpdate(req.params.movie_id, req.body);
+  const promise = Movie.findByIdAndUpdate(req.params.movie_id, req.body, {new : true});
 
  promise.then((movie) => {
   
@@ -39,6 +39,18 @@ router.put('/:movie_id', (req,res,next) => {  // id bazlı arama için
    
  });
 });
+
+router.delete('/:movie_id', (req,res,next) => {  //veri silme
+  const promise = Movie.findByIdAndRemove(req.params.movie_id);
+
+ promise.then((movie) => {
+  
+   res.json(movie);
+ }).catch((err) => {
+   next({message : 'The movie was not found.'});
+   
+ });
+}); 
 
 router.post('/', (req, res, next) => {
   //const{title,imdb,category,contry,year} = req.body;
@@ -54,7 +66,7 @@ router.post('/', (req, res, next) => {
 const promise = movie.save();  //Yukarıdaki işlemin aynısını promise yapısını kullanarak bu şekilde daha temiz de yazabiliriz.
 
 promise.then((data) => {
-  res.json({status : 1});
+  res.json(data);
 }).catch((err) => {
   res.json(err);
 });
