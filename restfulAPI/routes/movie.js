@@ -83,5 +83,19 @@ promise.then((data) => {
   res.json(err);
 });
 });
+   
+router.get('/between/:start_year/:end_year', (req,res) => { //tarihler arasındaki dataları döner
+  const {start_year, end_year} = req.params;
+  const promise = Movie.find(
+    {
+      year : { "$gte" : parseInt(start_year) , "$lte" : parseInt(end_year) }, //aynı veya önceki veya sonraki tarihler.
+  }
+);
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
+});
 
 module.exports = router;
