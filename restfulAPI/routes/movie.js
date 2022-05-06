@@ -1,5 +1,6 @@
 const express = require('express');
 const app = require('../app');
+const Director = require('../Models/Director');
 const router = express.Router();
 
 const Movie = require('../Models/Movie');
@@ -97,5 +98,7 @@ router.get('/between/:start_year/:end_year', (req,res) => { //tarihler arasında
     res.json(err);
   });
 });
+
+
 
 module.exports = router;
