@@ -15,6 +15,8 @@ const director = require('./routes/director');
 
 const app = express();
 
+//Middleware
+const verifyToken = require('./Middleware/verify-token');
 
 //db connections:
 const db =require('./helper/db')(); 
@@ -27,6 +29,7 @@ app.set('view engine', 'jade');
 app.set('api_secret_key', config.api_secret_key);
 
 app.use(logger('dev'));
+app.use('/api', verifyToken)
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
