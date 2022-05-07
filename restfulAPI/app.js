@@ -4,10 +4,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+
 const bodyParser = require('body-parser');
-
 const bcrypt = require('bcryptjs');
-
 const config = require('./config');
 
 const indexRouter = require('./routes/index');
@@ -23,6 +22,8 @@ const db =require('./helper/db')();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+//CONFİG
 app.set('api_secret_key', config.api_secret_key);
 
 app.use(logger('dev'));
@@ -54,5 +55,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
