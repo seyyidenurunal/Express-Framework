@@ -6,13 +6,14 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-
+const bcrypt = require('bcryptjs');
 
 const indexRouter = require('./routes/index');
 const movie = require('./routes/movie');
 const director = require('./routes/director');
 
 const app = express();
+
 
 //db connections:
 const db =require('./helper/db')(); 
@@ -31,7 +32,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/register', indexRouter);
+app.use('/', indexRouter);
 app.use('/api/movie', movie);
 app.use('/api/director', director);
 
