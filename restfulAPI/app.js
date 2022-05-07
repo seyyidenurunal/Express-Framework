@@ -29,6 +29,7 @@ app.set('view engine', 'jade');
 app.set('api_secret_key', config.api_secret_key);
 
 app.use(logger('dev'));
+app.use('/api', verifyToken)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
