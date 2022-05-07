@@ -12,9 +12,11 @@ const config = require('./config');
 const indexRouter = require('./routes/index');
 const movie = require('./routes/movie');
 const director = require('./routes/director');
-
+const jwt = require('jsonwebtoken');
 const app = express();
 
+//Middleware
+const verifyToken = require('./Middleware/verify-token');
 
 //db connections:
 const db =require('./helper/db')(); 
@@ -27,6 +29,7 @@ app.set('view engine', 'jade');
 app.set('api_secret_key', config.api_secret_key);
 
 app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -37,6 +40,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api', verifyToken);
 app.use('/api/movie', movie);
 app.use('/api/director', director);
 

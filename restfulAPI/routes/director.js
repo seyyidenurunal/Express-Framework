@@ -40,4 +40,3 @@ router.get('/:director_id', (req,res,next) => {  // id bazlı arama için
 });
 
 module.exports = router;
-

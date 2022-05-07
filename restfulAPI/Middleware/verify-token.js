@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+
 module.exports = (req, res, next) => {
     const token = req.headers['x-access-token'] || req.body.token || req.query.token;
     
@@ -14,7 +15,7 @@ module.exports = (req, res, next) => {
                 req.decode = decoded;
                 next();
             }
-        });
+        })
     }else{
         res.json({
             status: false,
@@ -22,3 +23,5 @@ module.exports = (req, res, next) => {
         });
     }
 };
+
+
