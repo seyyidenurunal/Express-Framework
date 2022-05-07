@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 
 const bcrypt = require('bcryptjs');
 
+const config = require('./config');
+
 const indexRouter = require('./routes/index');
 const movie = require('./routes/movie');
 const director = require('./routes/director');
@@ -21,6 +23,7 @@ const db =require('./helper/db')();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.set('api_secret_key', config.api_secret_key);
 
 app.use(logger('dev'));
 app.use(express.json());
