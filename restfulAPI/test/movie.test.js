@@ -85,4 +85,34 @@ describe('/GET/:director_id movie', () => {
             });
     });
 });
+
+describe('/PUT/:director_id movie', () => {
+    it('It should Update a movie given by id.', (done) => {
+        const movie = {
+            title : 'Yakamoz',
+            director_id : '62740c715796fa8cddf8ac7a',
+            category : 'Bilim- Kurgu',
+            country : 'Türkiye',
+            year : '2020',
+            imdb : '9.2'
+        };
+
+        chai.request(server)
+            .put('/api/movie/' + movieId)
+            .send(movie)
+            .set('x-access-token', token)
+            .end((err,res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title').eql(movie.title);
+                res.body.should.have.property('director_id').eql(movie.director_id);
+                res.body.should.have.property('category').eql(movie.category);
+                res.body.should.have.property('country').eql(movie.country);
+            
+                done();
+            });
+    });
+});
+
+
 });
