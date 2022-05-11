@@ -65,7 +65,7 @@ describe('/POST movie', () => {
     });
 
 
-describe('/GET/:director_id movie', () => {
+describe('/GET/:movie_id movie', () => {
     it('İt should get a movie by the given id.', (done) => {
         chai.request(server)
             .get('/api/movie/' + movieId)
@@ -86,11 +86,11 @@ describe('/GET/:director_id movie', () => {
     });
 });
 
-describe('/PUT/:director_id movie', () => {
+describe('/PUT/:movie_id movie', () => {
     it('It should Update a movie given by id.', (done) => {
         const movie = {
             title : 'Yakamoz',
-            director_id : '62740c715796fa8cddf8ac7a',
+            director_id : '627bb896f21493fef6df41ac',
             category : 'Bilim- Kurgu',
             country : 'Türkiye',
             year : '2020',
@@ -109,6 +109,20 @@ describe('/PUT/:director_id movie', () => {
                 res.body.should.have.property('category').eql(movie.category);
                 res.body.should.have.property('country').eql(movie.country);
             
+                done();
+            });
+    });
+});
+
+
+describe('/DELETE/:movie_id movie', () => {
+    it('It should Delete a movie given by id.', (done) => {
+        chai.request(server)
+            .delete('/api/movie/' + movieId)
+            .set('x-access-token', token)
+            .end((err,res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
                 done();
             });
     });
