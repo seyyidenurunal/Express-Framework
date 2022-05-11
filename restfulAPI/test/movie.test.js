@@ -6,7 +6,7 @@ const server = require('../app');
 
 chai.use(chaiHttp);
 
-let token;
+let token, movieId;
 
 describe('/api/movie test', () => { 
    before((done) => {
@@ -34,7 +34,7 @@ describe('/api/movie test', () => {
         });
     });
 
-    describe('/POST movie', () => {
+describe('/POST movie', () => {
         it('It should Post a movie.', (done) => {
             const movie = {
                 title : 'Leyla İle Mecnun',
@@ -58,8 +58,31 @@ describe('/api/movie test', () => {
                     res.body.should.have.property('country');
                     res.body.should.have.property('year');
                     res.body.should.have.property('imdb');
+                    movieId = res.body._id;
                     done();
                 });
         });
     });
+
+
+describe('/GET/:director_id movie', () => {
+    it('İt should get a movie by the given id.', (done) => {
+        chai.request(server)
+            .get('/api/movie/' + movieId)
+            .set('x-access-token', token)
+            .end((err,res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('director_id');
+                res.body.should.have.property('category');
+                res.body.should.have.property('country');
+                res.body.should.have.property('year');
+                res.body.should.have.property('imdb');
+                res.body.should.have.property('_id').eql(movieId);
+                done();
+            });
+    });
+});
 });
