@@ -24,7 +24,14 @@ describe('/api/movie test', () => {
 
     describe('GET movie', () => {
         it('it should GET all the movies', (done) => {
-            done();
+            chai.request(server)
+                .get('/api/movie')
+                .set('x-access-token', token)
+                .end((err,res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    done();
+                });
         });
     });
 });
