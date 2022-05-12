@@ -3,6 +3,17 @@ const Director = require('../Models/Director');
 const router = express.Router();
 const app = require('../app');
 
+
+router.get('/', (req,res) => {
+  const promise = Director.find({});
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
+
 router.post('/', (req, res, next) => {
   const director =  new Director(req.body);
   const promise = director.save();
