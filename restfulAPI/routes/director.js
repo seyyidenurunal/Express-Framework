@@ -1,8 +1,7 @@
 const express = require('express');
-const { populate } = require('../Models/Director');
-const router = express.Router();
-
 const Director = require('../Models/Director');
+const router = express.Router();
+const app = require('../app');
 
 router.post('/', (req, res, next) => {
   const director =  new Director(req.body);
