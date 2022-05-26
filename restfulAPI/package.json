@@ -15,6 +15,7 @@
     "cookie-parser": "~1.4.4",
     "cookieparser": "^0.1.0",
     "debug": "~2.6.9",
+    "esm": "^3.2.25",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
